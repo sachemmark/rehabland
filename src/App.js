@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useMediaQuery } from "react-responsive";
+import styled from "styled-components";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { DivColumn } from "./components/elementaries/Containers";
+import DesktopPlaceholder from "./components/pages/DesktopPlaceholder";
+import Router from "./services/Router";
+import Theme from "./themes";
+
+let AppContainer = styled(DivColumn)`
+    width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+`;
+
+export default function App() {
+    const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
+
+    return (
+        <Theme>
+            {isMobile
+                ? <AppContainer>
+                      <Router/>
+                  </AppContainer>
+                : <DesktopPlaceholder/>
+            }
+        </Theme>
+    );
 }
-
-export default App;
